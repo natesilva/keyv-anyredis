@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import {
 	CompatiblePromiseRedisClient,
-	CompatibleCallbackRedisClient
+	CompatibleCallbackRedisClient,
 } from './compatible-redis-client';
 import { promisify } from 'util';
 
@@ -41,7 +41,7 @@ export class WrappedCallbackClient
 	}
 
 	set(key: string, value: string, expiryMode?: string, time?: number) {
-		if (expiryMode && time) {
+		if (expiryMode && typeof time === 'number') {
 			return this.#set(key, value, expiryMode, time);
 		}
 
