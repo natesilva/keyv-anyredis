@@ -4,7 +4,7 @@ import Keyv from 'keyv';
 import KeyvAnyRedis from '../src/keyv-any-redis';
 import { createNodeRedisClient } from 'handy-redis';
 
-// Test the classic redis client (npm install redis)
+// Test handy-redis https://github.com/mmkal/handy-redis
 
 const { REDIS_HOST = 'localhost' } = process.env;
 const { REDIS_PORT = '6379' } = process.env;

@@ -4,7 +4,7 @@ import Keyv from 'keyv';
 import * as redis from 'thunk-redis';
 import KeyvAnyRedis from '../src/keyv-any-redis';
 
-// Test thunk-redis https://github.com/thunks/thunk-redis
+// Test thunk-redis in cluster mode https://github.com/thunks/thunk-redis
 
 // NOTE: Only works in Promise mode.
 
