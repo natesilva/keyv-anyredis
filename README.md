@@ -19,7 +19,7 @@ While this covers many use cases, it doesn’t work for the following:
 | :------------------------------------------------------------------ | :---------- | :--------------------------------------------------------------------------------------- |
 | [**redis**](https://github.com/NodeRedis/node-redis)                | ✅          |                                                                                          |
 | [**ioredis**](https://github.com/luin/ioredis)                      | ✅          | Standalone and cluster mode                                                              |
-| [fakeredis](github.com/hdachev/fakeredis)                           | ✅          |                                                                                          |
+| [fakeredis](https://github.com/hdachev/fakeredis)                   | ✅          |                                                                                          |
 | [fast-redis-cluster2](https://github.com/h0x91b/fast-redis-cluster) | ✅          |                                                                                          |
 | [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅          |                                                                                          |
 | [noderis](https://github.com/wallneradam/noderis)                   | ⛔️         | `smembers` is missing                                                                    |
