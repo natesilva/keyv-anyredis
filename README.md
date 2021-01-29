@@ -9,7 +9,7 @@ The official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter is 
 While this covers many use cases, it doesn’t work for the following:
 
 - Using **ioredis** in [cluster mode](https://github.com/luin/ioredis#cluster).
-- Using a different client, such as [**redis**](https://github.com/NodeRedis/node-redis)
+- Using a different client
 
 **keyv-anyredis** works with any Redis client that implements a [standard callback or Promise interface](src/compatible-redis-client.ts).
 
