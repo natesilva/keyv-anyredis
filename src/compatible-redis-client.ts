@@ -52,7 +52,7 @@ export interface CompatiblePromiseRedisClient {
 	smembers(key: string): PromiseLike<string[]>;
 }
 
-type CompatibleRedisClient =
+export type CompatibleRedisClient =
 	| CompatibleCallbackRedisClient
 	| CompatiblePromiseRedisClient;
 
@@ -66,5 +66,3 @@ export function isPromiseClient(
 
 	return false;
 }
-
-export default CompatibleRedisClient;

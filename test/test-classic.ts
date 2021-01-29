@@ -1,8 +1,8 @@
-import test from 'ava';
 import keyvTestSuite from '@keyv/test-suite';
+import test from 'ava';
 import Keyv from 'keyv';
-import KeyvAnyRedis from '../src/keyv-any-redis';
 import redis from 'redis';
+import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
 // Test the classic redis client (npm install redis)
 

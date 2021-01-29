@@ -1,11 +1,12 @@
 import EventEmitter from 'events';
-import CompatibleRedisClient, {
+import {
 	CompatiblePromiseRedisClient,
+	CompatibleRedisClient,
 	isPromiseClient
 } from './compatible-redis-client';
 import { WrappedCallbackClient } from './wrapped-callback-client';
 
-export default class KeyvAnyRedis extends EventEmitter {
+export class KeyvAnyRedis extends EventEmitter {
 	namespace = '';
 	readonly #client: CompatiblePromiseRedisClient;
 

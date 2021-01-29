@@ -38,7 +38,7 @@ npm install --save keyv-anyredis
 
 ```javascript
 const Keyv = require('keyv');
-const KeyvAnyRedis = require('keyv-anyredis');
+const { KeyvAnyRedis } = require('keyv-anyredis');
 
 // Create a client here, using ioredis, redis, or any
 // compatible library.

@@ -1,9 +1,9 @@
-import test from 'ava';
 import keyvTestSuite from '@keyv/test-suite';
-import Keyv from 'keyv';
-import KeyvAnyRedis from '../src/keyv-any-redis';
-import RedisClustr from 'redis-clustr';
+import test from 'ava';
 import * as dns from 'dns';
+import Keyv from 'keyv';
+import RedisClustr from 'redis-clustr';
+import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
 // Test redis-clustr https://github.com/gosquared/redis-clustr
 

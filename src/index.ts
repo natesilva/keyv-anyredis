@@ -1,2 +1,2 @@
 export * from './compatible-redis-client';
-export { default } from './keyv-any-redis';
+export * from './keyv-any-redis';

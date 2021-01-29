@@ -2,8 +2,8 @@ import keyvTestSuite from '@keyv/test-suite';
 import test from 'ava';
 import Keyv from 'keyv';
 import { Tedis } from 'tedis';
-import CompatibleRedisClient from '../src/compatible-redis-client';
-import KeyvAnyRedis from '../src/keyv-any-redis';
+import { CompatibleRedisClient } from '../src/compatible-redis-client';
+import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
 // Test Tedis https://github.com/silkjs/tedis
 

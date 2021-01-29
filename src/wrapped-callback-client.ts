@@ -1,9 +1,9 @@
 import EventEmitter from 'events';
-import {
-	CompatiblePromiseRedisClient,
-	CompatibleCallbackRedisClient
-} from './compatible-redis-client';
 import { promisify } from 'util';
+import {
+	CompatibleCallbackRedisClient,
+	CompatiblePromiseRedisClient
+} from './compatible-redis-client';
 
 /** A Promise wrapper for callback-based Redis clients. */
 export class WrappedCallbackClient

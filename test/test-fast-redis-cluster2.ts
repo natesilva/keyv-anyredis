@@ -1,8 +1,8 @@
-import test from 'ava';
 import keyvTestSuite from '@keyv/test-suite';
-import Keyv from 'keyv';
-import KeyvAnyRedis from '../src/keyv-any-redis';
+import test from 'ava';
 import { clusterClient } from 'fast-redis-cluster2';
+import Keyv from 'keyv';
+import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
 // Test fast-redis-cluster2 https://github.com/h0x91b/fast-redis-cluster
 
