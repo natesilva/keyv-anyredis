@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  redis-cluster:
+    image: grokzen/redis-cluster:latest  
+    environment:
+      # also starts one non-cluster instance of Redis
+      STANDALONE: '1'
+
+  test:
+    build: .
+    environment:
+      REDIS_HOST: redis-cluster
+      REDIS_PORT: 7006
+      REDIS_CLUSTER_NODE_1_HOST: redis-cluster
+      REDIS_CLUSTER_NODE_1_PORT: 7000
+    volumes:
+      - ./:/repo
