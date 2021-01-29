@@ -23,7 +23,7 @@ While this covers many use cases, it doesn’t work for the following:
 | [fast-redis-cluster2](https://github.com/h0x91b/fast-redis-cluster) | ✅          |                                                                                          |
 | [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅          |                                                                                          |
 | [noderis](https://github.com/wallneradam/noderis)                   | ⛔️         | `smembers` is missing                                                                    |
-| [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅          | `couldn’t get client` can be resolved by using an IP address instead of a hostname       |
+| [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅          |        |
 | [tedis](https://github.com/silkjs/tedis)                            | 🟡          | Non-standard `get` return type; cast the client to `CompatibleRedisClient` in TypeScript |
 | [thunk-redis](https://github.com/thunks/thunk-redis)                | ✅          | Set `usePromise: true`; works in cluster mode                                    |
 | [xredis](https://github.com/razaellahi/xredis)                      | ✅          |                                                                                          |
