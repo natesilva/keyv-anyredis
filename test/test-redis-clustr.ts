@@ -15,6 +15,10 @@ const { REDIS_CLUSTER_NODE_1_PORT = '7000' } = process.env;
 // to work.
 
 dns.lookup(REDIS_CLUSTER_NODE_1_HOST, (error, address) => {
+	if (error) {
+		throw error;
+	}
+
 	const clusterHost = {
 		port: Number.parseInt(REDIS_CLUSTER_NODE_1_PORT, 10),
 		host: address

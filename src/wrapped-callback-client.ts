@@ -5,6 +5,7 @@ import {
 } from './compatible-redis-client';
 import { promisify } from 'util';
 
+/** A Promise wrapper for callback-based Redis clients. */
 export class WrappedCallbackClient
 	extends EventEmitter
 	implements CompatiblePromiseRedisClient {
