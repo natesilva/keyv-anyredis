@@ -1,6 +1,6 @@
 # keyv-anyredis [![npm](https://img.shields.io/npm/v/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![dependencies](https://img.shields.io/david/natesilva/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![license](https://img.shields.io/github/license/natesilva/keyv-anyredis.svg)](https://github.com/natesilva/keyv-anyredis/blob/master/LICENSE)
 
-Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) that works with many different Redis clients and supports cluster mode.
+Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) that works with many different Redis clients and supports cluster mode
 
 ## Background
 
@@ -8,7 +8,7 @@ The official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter is 
 
 While this covers many use cases, it doesn’t work for the following:
 
-- Using **ioredis** in [cluster mode](https://github.com/luin/ioredis#cluster).
+- Using ioredis in [cluster mode](https://github.com/luin/ioredis#cluster)
 - Using a different client
 
 **keyv-anyredis** works with any Redis client that implements a [standard callback or Promise interface](src/compatible-redis-client.ts).
@@ -25,13 +25,13 @@ While this covers many use cases, it doesn’t work for the following:
 | [noderis](https://github.com/wallneradam/noderis)                   | ⛔️         | `smembers` is missing                                                                    |
 | [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅          | `couldn’t get client` can be resolved by using an IP address instead of a hostname       |
 | [tedis](https://github.com/silkjs/tedis)                            | 🟡          | Non-standard `get` return type; cast the client to `CompatibleRedisClient` in TypeScript |
-| [thunk-redis](https://github.com/thunks/thunk-redis)                | ✅          | `usePromise: true` must be set; works in cluster mode                                    |
+| [thunk-redis](https://github.com/thunks/thunk-redis)                | ✅          | Set `usePromise: true`; works in cluster mode                                    |
 | [xredis](https://github.com/razaellahi/xredis)                      | ✅          |                                                                                          |
 
 ## Install
 
 ```shell
-npm install --save keyv-anyredis
+npm i keyv-anyredis
 ```
 
 ## Usage
