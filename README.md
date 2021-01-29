@@ -1,4 +1,4 @@
-# keyv-anyredis [![npm](https://img.shields.io/npm/v/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![dependencies](https://img.shields.io/david/natesilva/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![license](https://img.shields.io/github/license/natesilva/keyv-anyredis.svg)](https://github.com/natesilva/keyv-anyredis/blob/master/LICENSE) [![node](https://img.shields.io/node/v/keyv-anyredis.svg)](https://www.npmjs.com/package/p-ratelimit)
+# keyv-anyredis [![npm](https://img.shields.io/npm/v/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![dependencies](https://img.shields.io/david/natesilva/keyv-anyredis.svg)](https://www.npmjs.com/package/keyv-anyredis) [![license](https://img.shields.io/github/license/natesilva/keyv-anyredis.svg)](https://github.com/natesilva/keyv-anyredis/blob/master/LICENSE)
 
 Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) that works with many different Redis clients and supports cluster mode.
 
