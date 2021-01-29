@@ -74,5 +74,8 @@
 		"xo": "^0.37.1",
 		"xredis": "^1.0.4"
 	},
-	"dependencies": {}
+	"dependencies": {},
+	"volta": {
+		"node": "12.20.1"
+	}
 }
