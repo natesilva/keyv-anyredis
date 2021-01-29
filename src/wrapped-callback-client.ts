@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import {
 	CompatiblePromiseRedisClient,
-	CompatibleCallbackRedisClient,
+	CompatibleCallbackRedisClient
 } from './compatible-redis-client';
 import { promisify } from 'util';
 
