@@ -58,12 +58,12 @@ const store = new KeyvAnyRedis(client);
 const keyv = new Keyv({ store });
 ```
 
-## Testing
+## Running the unit tests
 
-To run the unit tests, it’s easiest to use Docker:
+If you are submitting a pull request for this module, or if you just want to verify for yourself that it works correctly, you can run our unit tests. It’s easiest if you have Docker running.
 
 ```shell
 npm run test:docker
 ```
 
-If you choose to run the tests locally (with `npm test`) you’ll need to have a standalone instance of Redis on port 6379 **and** a cluster instance of Redis on port 7000.
+If you don’t want to use Docker, run `npm test`. You’ll need to have a standalone instance of Redis on port 6379 **and** a cluster instance of Redis on port 7000.
