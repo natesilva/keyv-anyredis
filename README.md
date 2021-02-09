@@ -2,17 +2,15 @@
 
 Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) that works with many different Redis clients and supports cluster mode
 
-## Comparison
+## Why use this?
 
-Why use this instead of the official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter? Because it does more! In particular, it can be used with Redis cluster mode.
+Why use this instead of the official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter? Because it does more! In particular, it can be used with Redis cluster mode (the official adapter cannot).
 
-| | Official client ([@keyv/redis](https://github.com/lukechilds/keyv-redis)) | This client ([keyv-anyredis](https://www.npmjs.com/package/keyv-anyredis)) |
-| :--- | :--- | :--- |
-| Works with standard Redis (non-cluster) mode | ✅ | ✅ |
-| Works with Redis **cluster mode** | ⛔️ | ✅ |
-| Works with `ioredis` | ✅ | ✅ |
-| Works with other clients | ⛔️ | ✅ |
-| Passes all tests in the [Keyv test suite](https://github.com/lukechilds/keyv-test-suite) | ✅ | ✅ |
+* ✅  Works with standard Redis (non-cluster) mode
+* ✅  Works with Redis **cluster mode**
+* ✅  Works with `ioredis`
+* ✅  Works with [other clients](#tested-clients)
+* ✅  Passes all tests in the Keyv test suite
 
 ## Tested clients
 
