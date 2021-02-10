@@ -19,16 +19,16 @@ We use the the official [Keyv test suite](https://github.com/lukechilds/keyv-tes
 
 | Client                                                              | Compatible? | Notes                                                                                    |
 | :------------------------------------------------------------------ | :---------- | :--------------------------------------------------------------------------------------- |
-| [**redis**](https://github.com/NodeRedis/node-redis)                | ✅          | Also known as **node-redis**                                                                                         |
-| [**ioredis**](https://github.com/luin/ioredis)                      | ✅          | Works great in standard and cluster mode                                                              |
-| [fakeredis](https://github.com/hdachev/fakeredis)                   | ✅          |                                                                                          |
-| [fast-redis-cluster2](https://github.com/h0x91b/fast-redis-cluster) | ✅          | Cluster mode                                                                                         |
-| [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅          |                                                                                          |
-| [noderis](https://github.com/wallneradam/noderis)                   | ⛔️         | `smembers` is missing                                                                    |
-| [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅          |        |
-| [tedis](https://github.com/silkjs/tedis)                            | 🟡          | To use this client, cast the client to `CompatibleRedisClient` in TypeScript |
-| [thunk-redis](https://github.com/thunks/thunk-redis)                | ✅          | Set `usePromise: true`; works in standard and cluster mode                                    |
-| [xredis](https://github.com/razaellahi/xredis)                      | ✅          |                                                                                          |
+| [**redis**](https://github.com/NodeRedis/node-redis)                | ✅&nbsp;&nbsp;&nbsp;Yes          | Also known as **node-redis**                                                                                         |
+| [**ioredis**](https://github.com/luin/ioredis)                      | ✅&nbsp;&nbsp;&nbsp;Yes          | Works great in standard and cluster mode                                                              |
+| [fakeredis](https://github.com/hdachev/fakeredis)                   | ✅&nbsp;&nbsp;&nbsp;Yes          |                                                                                          |
+| [fast-redis-cluster2](https://github.com/h0x91b/fast-redis-cluster) | ✅&nbsp;&nbsp;&nbsp;Yes          | Cluster mode                                                                                         |
+| [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅&nbsp;&nbsp;&nbsp;Yes          |                                                                                          |
+| [noderis](https://github.com/wallneradam/noderis)                   | ⛔️&nbsp;&nbsp;&nbsp;No         | `smembers` is missing                                                                    |
+| [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅&nbsp;&nbsp;&nbsp;Yes          |        |
+| [tedis](https://github.com/silkjs/tedis)                            | ✅&nbsp;&nbsp;&nbsp;Yes         | To use this client, cast the client to `CompatibleRedisClient` in TypeScript |
+| [thunk-redis](https://github.com/thunks/thunk-redis)                | ✅&nbsp;&nbsp;&nbsp;Yes         | Set `usePromise: true`; works in standard and cluster mode                                    |
+| [xredis](https://github.com/razaellahi/xredis)                      | ✅&nbsp;&nbsp;&nbsp;Yes          |                                                                                          |
 
 ## Install
 
