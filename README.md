@@ -6,11 +6,10 @@ Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) t
 
 Why use this instead of the official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter? Because it does more! In particular, it can be used with Redis cluster mode (the official adapter cannot).
 
-* ✅  Works with standard Redis (non-cluster) mode
-* ✅  Works with Redis **cluster mode**
-* ✅  Works with `ioredis`
-* ✅  Works with [other clients](#tested-clients)
-* ✅  Passes all tests in the Keyv test suite
+* ✅&nbsp;&nbsp;&nbsp;Works with standard Redis (non-cluster) mode
+* ✅&nbsp;&nbsp;&nbsp;Works with Redis **cluster mode**
+* ✅&nbsp;&nbsp;&nbsp;Works with **ioredis** and [many other Redis clients](#tested-clients)
+* ✅&nbsp;&nbsp;&nbsp;Passes all tests in the Keyv test suite
 
 ## Tested clients
 
