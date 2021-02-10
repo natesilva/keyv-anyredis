@@ -15,7 +15,7 @@ Why use this instead of the official [@keyv/redis](https://github.com/lukechilds
 
 `keyv-anyredis` works with any Redis client that implements a [standard callback or Promise interface](src/compatible-redis-client.ts), including the two most popular clients, **ioredis** and **node-redis**.
 
-We use the the official [Keyv test suite](https://github.com/lukechilds/keyv-test-suite). For clients that support cluster mode, the test suite is verified against both a standard Redis instance and a Redis cluster.
+We use the the official [Keyv test suite](https://github.com/lukechilds/keyv-test-suite), and we test with both a standard Redis server and a Redis cluster.
 
 | Client                                                              | Compatible? | Notes                                                                                    |
 | :------------------------------------------------------------------ | :---------- | :--------------------------------------------------------------------------------------- |
