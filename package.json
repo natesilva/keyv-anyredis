@@ -1,6 +1,6 @@
 {
 	"name": "keyv-anyredis",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Storage adapter for Keyv that works with multiple Redis clients, including cluster clients",
 	"main": "build/src/index.js",
 	"types": "build/src/index.d.ts",
