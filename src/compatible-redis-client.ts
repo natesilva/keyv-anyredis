@@ -21,9 +21,17 @@ export interface CompatibleCallbackRedisClient {
 
 	on?(event: 'error', callback?: (error: Error) => unknown): unknown;
 
-	sadd(key: string, member: string, callback?: RedisCallback<unknown>): unknown;
+	sadd(
+		key: string,
+		member: string,
+		callback?: RedisCallback<unknown>
+	): unknown;
 
-	srem(key: string, member: string, callback?: RedisCallback<unknown>): unknown;
+	srem(
+		key: string,
+		member: string,
+		callback?: RedisCallback<unknown>
+	): unknown;
 
 	smembers(key: string, callback?: RedisCallback<string[]>): unknown;
 }
@@ -61,6 +69,15 @@ export function isPromiseClient(
 ): client is CompatiblePromiseRedisClient {
 	const result = client.get('hello');
 	if (typeof (result as PromiseLike<unknown>)?.then === 'function') {
+		(result as PromiseLike<unknown>).then(
+			// Handle fulfilled and rejected callbacks (prevent unhandled Promise rejection)
+			() => {
+				// Nothing
+			},
+			error => {
+				console.error(error);
+			}
+		);
 		return true;
 	}
 
