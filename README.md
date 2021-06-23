@@ -4,7 +4,7 @@ Zero-dependency storage adapter for [Keyv](https://github.com/lukechilds/keyv) t
 
 ## Why use this?
 
-Why use this instead of the official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter? Because it does more! In particular, it can be used with Redis cluster mode (the official adapter cannot).
+Why use this instead of the official [@keyv/redis](https://github.com/lukechilds/keyv-redis) adapter? Because it does more. In particular, it can be used with Redis cluster mode (the official adapter cannot).
 
 * ✅&nbsp;&nbsp;&nbsp;Works with standard Redis (non-cluster) mode
 * ✅&nbsp;&nbsp;&nbsp;Works with Redis **cluster mode**
@@ -53,4 +53,12 @@ const { KeyvAnyRedis } = require('keyv-anyredis');
 
 const store = new KeyvAnyRedis(client);
 const keyv = new Keyv({ store });
+```
+
+## Running tests
+
+Docker must be installed and running. Docker containers for Redis and Redis Cluster will be started so that tests can run against them.
+
+```shell
+npm run test:docker
 ```
