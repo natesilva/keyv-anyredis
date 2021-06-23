@@ -1,0 +1,14 @@
+src
+.nycrc.json
+.prettierrc.json
+.nova
+.vscode
+.travis.yml
+test
+coverage
+tsconfig.json
+.nyc_output
+*.sublime-*
+Dockerfile
+docker-compose.yml
+*.spec.*

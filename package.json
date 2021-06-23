@@ -33,9 +33,6 @@
 	"bugs": {
 		"url": "https://github.com/natesilva/keyv-anyredis/issues"
 	},
-	"files": [
-		"build"
-	],
 	"xo": {
 		"extends": "xo-lukechilds"
 	},
