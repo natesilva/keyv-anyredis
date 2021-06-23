@@ -57,7 +57,7 @@ const keyv = new Keyv({ store });
 
 ## Running tests
 
-Docker must be installed and running. Docker containers for Redis and Redis Cluster will be started so that tests can run against them.
+To run the unit tets, Docker must be running. Containers for Redis and Redis Cluster will be started so that tests can run against them.
 
 ```shell
 npm run test:docker
