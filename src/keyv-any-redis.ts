@@ -1,10 +1,9 @@
 import EventEmitter from 'events';
 import {
 	CompatiblePromiseRedisClient,
-	CompatibleRedisClient,
-	isPromiseClient
+	CompatibleRedisClient
 } from './compatible-redis-client';
-import { WrappedCallbackClient } from './wrapped-callback-client';
+import { RedisPromiseAdapter } from './redis-promise-adapter';
 
 export class KeyvAnyRedis extends EventEmitter {
 	namespace = '';
@@ -13,11 +12,7 @@ export class KeyvAnyRedis extends EventEmitter {
 	constructor(client: CompatibleRedisClient) {
 		super();
 
-		if (isPromiseClient(client)) {
-			this.#client = client;
-		} else {
-			this.#client = new WrappedCallbackClient(client);
-		}
+		this.#client = RedisPromiseAdapter.create(client);
 
 		if (this.#client instanceof EventEmitter) {
 			this.#client.on('error', error => this.emit('error', error));
