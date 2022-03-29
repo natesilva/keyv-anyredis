@@ -47,7 +47,7 @@
 	},
 	"homepage": "https://github.com/natesilva/keyv-anyredis#readme",
 	"devDependencies": {
-		"@keyv/test-suite": "^1.6.11",
+		"@keyv/test-suite": "1.6.11",
 		"@types/ioredis": "^4.26.4",
 		"@types/keyv": "^3.1.1",
 		"@types/node": "^16.11.26",

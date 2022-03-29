@@ -10,10 +10,8 @@ import { RedisPromiseAdapter } from './redis-promise-adapter';
 
 test('constructor: should create the storage adapter', t => {
 	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ('the adapter' as unknown) as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
-	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
 
 	const _unused = new KeyvAnyRedis(mockClient);
 

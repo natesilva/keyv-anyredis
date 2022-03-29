@@ -14,5 +14,9 @@ services:
       REDIS_PORT: 7006
       REDIS_CLUSTER_NODE_1_HOST: redis-cluster
       REDIS_CLUSTER_NODE_1_PORT: 7000
+    command: ["/usr/bin/wait-for", "redis-cluster:7006", "--", "npm", "test"]
     volumes:
       - ./:/repo
+      - /repo/node_modules
+    links:
+      - redis-cluster
