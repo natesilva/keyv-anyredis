@@ -12,4 +12,4 @@ const { REDIS_PORT = '6379' } = process.env;
 const client = redis.createClient(Number.parseInt(REDIS_PORT, 10), REDIS_HOST);
 
 const store = () => new KeyvAnyRedis(client);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

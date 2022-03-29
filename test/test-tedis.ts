@@ -19,4 +19,4 @@ const client = new Tedis({
 // get() function to return Promise<string | number | null>, which is non-standard. The
 // number type is not normally returned by a Redis GET command.
 const store = () => new KeyvAnyRedis(client as CompatibleRedisClient);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

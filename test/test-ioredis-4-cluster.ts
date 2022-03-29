@@ -17,4 +17,4 @@ const clusterHost = {
 const client = new Redis.Cluster([clusterHost]);
 
 const store = () => new KeyvAnyRedis(client);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

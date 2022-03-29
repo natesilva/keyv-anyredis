@@ -27,5 +27,5 @@ dns.lookup(REDIS_CLUSTER_NODE_1_HOST, (error, address) => {
 	const client = new RedisClustr({ servers: [clusterHost] });
 
 	const store = () => new KeyvAnyRedis(client);
-	keyvTestSuite(test, Keyv, store);
+	keyvTestSuite.default(test, Keyv, store);
 });

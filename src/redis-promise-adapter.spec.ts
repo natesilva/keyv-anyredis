@@ -9,9 +9,7 @@ import {
 } from './compatible-redis-client';
 import { RedisPromiseAdapter } from './redis-promise-adapter';
 
-let mockCallbackClient: CompatibleCallbackRedisClient;
-
-test.beforeEach(() => {
+function getMockCallbackClient(): CompatibleCallbackRedisClient {
 	const mockClient = new EventEmitter();
 
 	Object.defineProperties(mockClient, {
@@ -24,14 +22,10 @@ test.beforeEach(() => {
 		exists: { value: td.func(), enumerable: true }
 	});
 
-	mockCallbackClient = mockClient as unknown as CompatibleCallbackRedisClient;
-});
+	return mockClient as unknown as CompatibleCallbackRedisClient;
+}
 
-test.afterEach(() => {
-	td.reset();
-});
-
-test('create: should pass through if the client uses Promises', t => {
+test.serial('create: should pass through if the client uses Promises', t => {
 	const mockPromiseClient = {} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(CompatibleRedisClientModule, 'isPromiseClient');
@@ -42,17 +36,21 @@ test('create: should pass through if the client uses Promises', t => {
 	const result = RedisPromiseAdapter.create(mockPromiseClient);
 
 	t.is(result, mockPromiseClient);
+	td.reset();
 });
 
-test('create: should wrap the client if it is callback-based', t => {
+test.serial('create: should wrap the client if it is callback-based', t => {
+	const mockCallbackClient = getMockCallbackClient();
 	td.replace(CompatibleRedisClientModule, 'isPromiseClient');
 
 	const result = RedisPromiseAdapter.create(mockCallbackClient);
 
 	t.assert(result instanceof RedisPromiseAdapter);
+	td.reset();
 });
 
 test('constructor: should listen on the client’s error event if the client is an EventEmitter', t => {
+	const mockCallbackClient = getMockCallbackClient();
 	td.replace(mockCallbackClient, 'on');
 
 	const result = RedisPromiseAdapter.create(
@@ -64,22 +62,26 @@ test('constructor: should listen on the client’s error event if the client is 
 	t.pass();
 });
 
-test.cb('constructor: should emit an error if the client emits one', t => {
-	const mockError = new Error('the error');
+test('constructor: should emit an error if the client emits one', async t => {
+	await new Promise<void>((resolve, reject) => {
+		const mockCallbackClient = getMockCallbackClient();
+		const mockError = new Error('the error');
 
-	const adapter = RedisPromiseAdapter.create(mockCallbackClient);
+		const adapter = RedisPromiseAdapter.create(mockCallbackClient);
 
-	assert(mockCallbackClient.on);
+		assert(mockCallbackClient.on);
 
-	adapter.on?.('error', error => {
-		t.is(error, mockError);
-		t.end();
+		adapter.on?.('error', error => {
+			t.is(error, mockError);
+			resolve();
+		});
+
+		(mockCallbackClient as unknown as EventEmitter).emit('error', mockError);
 	});
-
-	(mockCallbackClient as unknown as EventEmitter).emit('error', mockError);
 });
 
 test('get: should delegate to the promisified callback client method', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 
@@ -93,6 +95,7 @@ test('get: should delegate to the promisified callback client method', async t =
 });
 
 test('get: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockError = new Error('the error');
 
@@ -104,6 +107,7 @@ test('get: should reject if the callback returns an error', async t => {
 });
 
 test('del: should delegate to the promisified callback client method', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = -99;
 
@@ -117,6 +121,7 @@ test('del: should delegate to the promisified callback client method', async t =
 });
 
 test('del: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockError = new Error('the error');
 
@@ -128,6 +133,7 @@ test('del: should reject if the callback returns an error', async t => {
 });
 
 test('sadd: should delegate to the promisified callback client method', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const mockSetMember = 'the value';
 	const placeholderResult = 'placeholder result';
@@ -145,6 +151,7 @@ test('sadd: should delegate to the promisified callback client method', async t 
 });
 
 test('sadd: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const mockSetMember = 'the value';
 	const mockError = new Error('the error');
@@ -160,6 +167,7 @@ test('sadd: should reject if the callback returns an error', async t => {
 });
 
 test('srem: should delegate to the promisified callback client method', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const mockSetMember = 'the value';
 	const placeholderResult = 'placeholder result';
@@ -177,6 +185,7 @@ test('srem: should delegate to the promisified callback client method', async t 
 });
 
 test('srem: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const mockSetMember = 'the value';
 	const mockError = new Error('the error');
@@ -192,6 +201,7 @@ test('srem: should reject if the callback returns an error', async t => {
 });
 
 test('smembers: should delegate to the promisified callback client method', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const placeholderResult = ['placeholder result'];
 
@@ -205,6 +215,7 @@ test('smembers: should delegate to the promisified callback client method', asyn
 });
 
 test('smembers: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockSetName = 'the key';
 	const mockError = new Error('the error');
 
@@ -216,6 +227,7 @@ test('smembers: should reject if the callback returns an error', async t => {
 });
 
 test('set: should delegate to the promisified callback client method with no TTL', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 	const placeholderResult = 'placeholder result';
@@ -233,6 +245,7 @@ test('set: should delegate to the promisified callback client method with no TTL
 });
 
 test('set: should delegate to the promisified callback client method with a TTL', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 	const mockExpiryMode = 'the mode';
@@ -251,6 +264,7 @@ test('set: should delegate to the promisified callback client method with a TTL'
 });
 
 test('set: should reject if the callback returns an error', async t => {
+	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 	const mockError = new Error('the error');

@@ -6,10 +6,6 @@ import {
 	isPromiseClient
 } from './compatible-redis-client';
 
-test.afterEach(() => {
-	td.reset();
-});
-
 test('should return true if the client is Promise-based', t => {
 	const mockClient = ({
 		get: td.func()
@@ -47,4 +43,6 @@ test('should handle a Promise error', async t => {
 
 	// eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
 	td.verify(console.error(mockError));
+
+	td.reset();
 });

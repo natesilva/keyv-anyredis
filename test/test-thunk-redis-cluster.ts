@@ -16,4 +16,4 @@ const connectString = `${REDIS_CLUSTER_NODE_1_HOST}:${REDIS_CLUSTER_NODE_1_PORT}
 const client = redis.createClient([connectString], { usePromise: true });
 
 const store = () => new KeyvAnyRedis(client);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

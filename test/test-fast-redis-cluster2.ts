@@ -15,4 +15,4 @@ const connectionString = `${REDIS_CLUSTER_NODE_1_HOST}:${REDIS_CLUSTER_NODE_1_PO
 const client = new clusterClient.clusterInstance(connectionString);
 
 const store = () => new KeyvAnyRedis(client);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

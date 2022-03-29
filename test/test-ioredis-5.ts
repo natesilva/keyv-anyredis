@@ -14,4 +14,4 @@ const redisURI = `redis://${REDIS_HOST}:${REDIS_PORT}`;
 const client = new Redis(redisURI);
 
 const store = () => new KeyvAnyRedis(client);
-keyvTestSuite(test, Keyv, store);
+keyvTestSuite.default(test, Keyv, store);

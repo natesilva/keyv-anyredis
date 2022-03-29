@@ -9,7 +9,7 @@ import { KeyvAnyRedis } from './keyv-any-redis';
 import { RedisPromiseAdapter } from './redis-promise-adapter';
 
 test('constructor: should create the storage adapter', t => {
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 
@@ -20,7 +20,7 @@ test('constructor: should create the storage adapter', t => {
 });
 
 test('constructor: should listen on the client’s error event if the client is an EventEmitter', t => {
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 	const mockPromiseAdapter = new EventEmitter();
 
 	td.replace(mockPromiseAdapter, 'on');
@@ -34,27 +34,29 @@ test('constructor: should listen on the client’s error event if the client is 
 	t.pass();
 });
 
-test.cb('constructor: should emit an error if the client emits one', t => {
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = new EventEmitter();
-	const mockError = new Error('the error');
+test('constructor: should emit an error if the client emits one', async t => {
+	await new Promise<void>((resolve, reject) => {
+		const mockClient = 'the client' as unknown as CompatibleRedisClient;
+		const mockPromiseAdapter = new EventEmitter();
+		const mockError = new Error('the error');
 
-	td.replace(RedisPromiseAdapter, 'create');
-	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
+		td.replace(RedisPromiseAdapter, 'create');
+		td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
 
-	const adapter = new KeyvAnyRedis(mockClient);
+		const adapter = new KeyvAnyRedis(mockClient);
 
-	adapter.on('error', error => {
-		t.is(error, mockError);
-		t.end();
+		adapter.on('error', error => {
+			t.is(error, mockError);
+			resolve();
+		});
+
+		mockPromiseAdapter.emit('error', mockError);
 	});
-
-	mockPromiseAdapter.emit('error', mockError);
 });
 
 test('_getNamespace: should get the namespace', t => {
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ('the adapter' as unknown) as CompatiblePromiseRedisClient;
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = 'the adapter' as unknown as CompatiblePromiseRedisClient;
 	const mockNamespace = 'the namespace';
 
 	td.replace(RedisPromiseAdapter, 'create');
@@ -72,10 +74,10 @@ test('_getNamespace: should get the namespace', t => {
 test('get: should delegate to the client', async t => {
 	const mockKey = 'the key';
 	const mockValue = 'the value';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		get: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -90,10 +92,10 @@ test('get: should delegate to the client', async t => {
 
 test('get: should return undefined (not null) if not found', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		get: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -109,11 +111,11 @@ test('get: should return undefined (not null) if not found', async t => {
 test('set: should delegate to the client (called without ttl)', async t => {
 	const mockKey = 'the key';
 	const mockValue = 'the value';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		set: td.func(),
 		sadd: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -129,11 +131,11 @@ test('set: should delegate to the client (called with ttl)', async t => {
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 	const mockTtl = -42;
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		set: td.func(),
 		sadd: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -149,11 +151,11 @@ test('set: should log the key in a set', async t => {
 	const mockKey = 'the key';
 	const mockValue = 'the value';
 	const mockNamespace = 'the namespace';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		set: td.func(),
 		sadd: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -171,11 +173,11 @@ test('set: should log the key in a set', async t => {
 
 test('delete: should delegate to the client', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		del: td.func(),
 		srem: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -189,12 +191,12 @@ test('delete: should delegate to the client', async t => {
 
 test('delete: should log the key removal', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 	const mockNamespace = 'the namespace';
-	const mockPromiseAdapter = ({
+	const mockPromiseAdapter = {
 		del: td.func(),
 		srem: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -212,11 +214,11 @@ test('delete: should log the key removal', async t => {
 
 test('delete: should return true if a key was removed', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		del: td.func(),
 		srem: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -231,11 +233,11 @@ test('delete: should return true if a key was removed', async t => {
 
 test('delete: should return false if no key was removed', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
-	const mockPromiseAdapter = ({
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
 		del: td.func(),
 		srem: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 
 	td.replace(RedisPromiseAdapter, 'create');
 	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
@@ -250,12 +252,12 @@ test('delete: should return false if no key was removed', async t => {
 
 test('clear: should call del for all keys and the namespace', async t => {
 	const mockKey = 'the key';
-	const mockClient = ('the client' as unknown) as CompatibleRedisClient;
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 	const mockNamespace = 'the namespace';
-	const mockPromiseAdapter = ({
+	const mockPromiseAdapter = {
 		del: td.func(),
 		smembers: td.func()
-	} as unknown) as CompatiblePromiseRedisClient;
+	} as unknown as CompatiblePromiseRedisClient;
 	const keys = ['key1', 'key2', 'key3'];
 
 	td.replace(RedisPromiseAdapter, 'create');
