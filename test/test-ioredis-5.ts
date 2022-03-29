@@ -1,10 +1,10 @@
 import keyvTestSuite from '@keyv/test-suite';
 import test from 'ava';
-import Redis from 'ioredis';
+import Redis from 'ioredis-5';
 import Keyv from 'keyv';
 import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
-// Test ioredis
+// Test ioredis version 5
 
 const { REDIS_HOST = 'localhost' } = process.env;
 const { REDIS_PORT = '6379' } = process.env;

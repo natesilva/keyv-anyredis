@@ -1,6 +1,6 @@
 import keyvTestSuite from '@keyv/test-suite';
 import test from 'ava';
-import Redis from 'ioredis';
+import Redis from 'ioredis-5';
 import Keyv from 'keyv';
 import { KeyvAnyRedis } from '../src/keyv-any-redis';
 
