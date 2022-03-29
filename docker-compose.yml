@@ -6,6 +6,8 @@ services:
     environment:
       # also starts one non-cluster instance of Redis
       STANDALONE: '1'
+    volumes:
+      - redis-data:/data
 
   test:
     build: .
@@ -17,6 +19,10 @@ services:
     command: [sh, -c, "/bin/sleep 10s && npm test"]
     volumes:
       - ./:/repo
-      - /repo/node_modules
+      - test-node-modules:/repo/node_modules
     links:
       - redis-cluster
+      
+volumes:
+  test-node-modules: {}
+  redis-data: {}
