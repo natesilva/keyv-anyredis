@@ -50,7 +50,7 @@
 		"@keyv/test-suite": "^1.6.11",
 		"@types/ioredis": "^4.26.4",
 		"@types/keyv": "^3.1.1",
-		"@types/node": "^14.17.3",
+		"@types/node": "^16.11.26",
 		"@types/redis": "^2.8.29",
 		"ava": "^3.15.0",
 		"del-cli": "^4.0.0",
@@ -72,8 +72,7 @@
 		"xo": "^0.37.1",
 		"xredis": "^1.0.4"
 	},
-	"dependencies": {},
 	"volta": {
-		"node": "14.17.1"
+		"node": "16.14.2"
 	}
 }
