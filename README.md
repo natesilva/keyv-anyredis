@@ -25,7 +25,7 @@ We test with the the [Keyv test suite](https://github.com/jaredwray/keyv/tree/ma
 | [**ioredis**](https://github.com/luin/ioredis)                      | ✅&nbsp;&nbsp;&nbsp;Yes          | Works great in standard and cluster mode                                                              |
 | [fakeredis](https://github.com/hdachev/fakeredis)                   | ✅&nbsp;&nbsp;&nbsp;Yes          |                                                                                          |
 | [fast-redis-cluster2](https://github.com/h0x91b/fast-redis-cluster) | ✅&nbsp;&nbsp;&nbsp;Yes          | Cluster mode                                                                                         |
-| [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅&nbsp;&nbsp;&nbsp;Yes          |                                                                                          |
+| [handy-redis](https://github.com/mmkal/handy-redis)                 | ✅&nbsp;&nbsp;&nbsp;Yes          | To use this client, pass `client.nodeRedis` to the `KeyvAnyRedis` constructor                                                                                         |
 | [noderis](https://github.com/wallneradam/noderis)                   | ⛔️&nbsp;&nbsp;&nbsp;No         | `smembers` is missing                                                                    |
 | [redis-clustr](https://github.com/gosquared/redis-clustr)           | ✅&nbsp;&nbsp;&nbsp;Yes          | Cluster mode       |
 | [tedis](https://github.com/silkjs/tedis)                            | ✅&nbsp;&nbsp;&nbsp;Yes         | To use this client, cast the client to `CompatibleRedisClient` in TypeScript |

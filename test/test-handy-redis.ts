@@ -14,5 +14,5 @@ const client = createNodeRedisClient(
 	REDIS_HOST
 );
 
-const store = () => new KeyvAnyRedis(client);
+const store = () => new KeyvAnyRedis(client.nodeRedis);
 keyvTestSuite.default(test, Keyv, store);
