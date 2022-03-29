@@ -1,12 +1,14 @@
-import { EventEmitter } from 'stream';
 import { strict as assert } from 'assert';
 import test from 'ava';
+import { EventEmitter } from 'stream';
 import td from 'testdouble';
 import * as CompatibleRedisClientModule from './compatible-redis-client';
 import {
 	CompatibleCallbackRedisClient,
+	CompatibleNodeRedisV4Client,
 	CompatiblePromiseRedisClient
 } from './compatible-redis-client';
+import { NodeRedisV4Adapter } from './node-redis-v4-adapter';
 import { RedisPromiseAdapter } from './redis-promise-adapter';
 
 function getMockCallbackClient(): CompatibleCallbackRedisClient {
@@ -18,8 +20,7 @@ function getMockCallbackClient(): CompatibleCallbackRedisClient {
 		del: { value: td.func(), enumerable: true },
 		sadd: { value: td.func(), enumerable: true },
 		srem: { value: td.func(), enumerable: true },
-		smembers: { value: td.func(), enumerable: true },
-		exists: { value: td.func(), enumerable: true }
+		smembers: { value: td.func(), enumerable: true }
 	});
 
 	return mockClient as unknown as CompatibleCallbackRedisClient;
@@ -28,10 +29,10 @@ function getMockCallbackClient(): CompatibleCallbackRedisClient {
 test.serial('create: should pass through if the client uses Promises', t => {
 	const mockPromiseClient = {} as unknown as CompatiblePromiseRedisClient;
 
-	td.replace(CompatibleRedisClientModule, 'isPromiseClient');
-	td.when(CompatibleRedisClientModule.isPromiseClient(mockPromiseClient)).thenReturn(
-		true
-	);
+	td.replace(CompatibleRedisClientModule, 'isCompatiblePromiseRedisClient');
+	td.when(
+		CompatibleRedisClientModule.isCompatiblePromiseRedisClient(mockPromiseClient)
+	).thenReturn(true);
 
 	const result = RedisPromiseAdapter.create(mockPromiseClient);
 
@@ -39,9 +40,23 @@ test.serial('create: should pass through if the client uses Promises', t => {
 	td.reset();
 });
 
+test.serial('create: should wrap the client if it is node-redis-v4', t => {
+	const mockRedisV4Client = {} as unknown as CompatibleNodeRedisV4Client;
+
+	td.replace(CompatibleRedisClientModule, 'isCompatibleNodeRedisV4Client');
+	td.when(
+		CompatibleRedisClientModule.isCompatibleNodeRedisV4Client(mockRedisV4Client)
+	).thenReturn(true);
+
+	const result = RedisPromiseAdapter.create(mockRedisV4Client);
+
+	t.assert(result instanceof NodeRedisV4Adapter);
+	td.reset();
+});
+
 test.serial('create: should wrap the client if it is callback-based', t => {
 	const mockCallbackClient = getMockCallbackClient();
-	td.replace(CompatibleRedisClientModule, 'isPromiseClient');
+	td.replace(CompatibleRedisClientModule, 'isCompatiblePromiseRedisClient');
 
 	const result = RedisPromiseAdapter.create(mockCallbackClient);
 

@@ -2,10 +2,13 @@ import EventEmitter from 'events';
 import { promisify } from 'util';
 import {
 	CompatibleCallbackRedisClient,
+	CompatibleNodeRedisV4Client,
 	CompatiblePromiseRedisClient,
 	CompatibleRedisClient,
-	isPromiseClient
+	isCompatibleNodeRedisV4Client,
+	isCompatiblePromiseRedisClient
 } from './compatible-redis-client';
+import { NodeRedisV4Adapter } from './node-redis-v4-adapter';
 
 /**
  * Converts a Redis callback interface to match a Redis Promise interface. Implements only
@@ -53,11 +56,18 @@ export class RedisPromiseAdapter<T extends CompatibleCallbackRedisClient>
    *
    * @returns a Redis Promise client
    */
-	static create(client: CompatibleRedisClient): CompatiblePromiseRedisClient {
-		const promiseClient = isPromiseClient(client) ?
-			client :
-			new RedisPromiseAdapter(client);
-		return promiseClient;
+	static create(
+		client: CompatibleRedisClient | CompatibleNodeRedisV4Client
+	): CompatiblePromiseRedisClient {
+		if (isCompatiblePromiseRedisClient(client)) {
+			return client;
+		}
+
+		if (isCompatibleNodeRedisV4Client(client)) {
+			return new NodeRedisV4Adapter(client);
+		}
+
+		return new RedisPromiseAdapter(client);
 	}
 
 	get(key: string) {

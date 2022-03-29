@@ -21,17 +21,9 @@ export interface CompatibleCallbackRedisClient {
 
 	on?(event: 'error', callback?: (error: Error) => unknown): unknown;
 
-	sadd(
-		key: string,
-		member: string,
-		callback?: RedisCallback<unknown>
-	): unknown;
+	sadd(key: string, member: string, callback?: RedisCallback<unknown>): unknown;
 
-	srem(
-		key: string,
-		member: string,
-		callback?: RedisCallback<unknown>
-	): unknown;
+	srem(key: string, member: string, callback?: RedisCallback<unknown>): unknown;
 
 	smembers(key: string, callback?: RedisCallback<string[]>): unknown;
 }
@@ -60,11 +52,35 @@ export interface CompatiblePromiseRedisClient {
 	smembers(key: string): PromiseLike<string[]>;
 }
 
-export type CompatibleRedisClient =
-	| CompatibleCallbackRedisClient
-	| CompatiblePromiseRedisClient;
+/**
+ * A minimal subset of the Promise interface that is implemented by the “modern”
+ * node-redis version 4.
+ */
+export interface CompatibleNodeRedisV4Client {
+	get(key: string): Promise<string | null>;
+	GET(key: string): Promise<string | null>;
 
-export function isPromiseClient(
+	set(key: string, value: string, options?: { PX: number }): Promise<unknown>;
+	SET(key: string, value: string, options?: { PX: number }): Promise<unknown>;
+
+	del(key: string): Promise<number>;
+	DEL(key: string): Promise<number>;
+
+	on?(event: 'error', callback: (error: Error) => unknown): unknown;
+
+	SADD(key: string, member: string): Promise<unknown>;
+
+	SREM(key: string, member: string): Promise<unknown>;
+
+	SMEMBERS(key: string): Promise<string[]>;
+}
+
+export type CompatibleRedisClient =
+  | CompatibleCallbackRedisClient
+  | CompatiblePromiseRedisClient
+  | CompatibleNodeRedisV4Client;
+
+function isPromiseClient(
 	client: CompatibleRedisClient
 ): client is CompatiblePromiseRedisClient {
 	const result = client.get('hello');
@@ -82,4 +98,30 @@ export function isPromiseClient(
 	}
 
 	return false;
+}
+
+export function isCompatiblePromiseRedisClient(
+	client: CompatibleRedisClient
+): client is CompatiblePromiseRedisClient {
+	// It must have lowercase methods
+	for (const method of ['get', 'set', 'del', 'sadd', 'srem', 'smembers']) {
+		if (!(method in client)) {
+			return false;
+		}
+	}
+
+	return isPromiseClient(client);
+}
+
+export function isCompatibleNodeRedisV4Client(
+	client: CompatibleRedisClient
+): client is CompatibleNodeRedisV4Client {
+	// It must have uppercase methods
+	for (const method of ['GET', 'SET', 'DEL', 'SADD', 'SREM', 'SMEMBERS']) {
+		if (!(method in client)) {
+			return false;
+		}
+	}
+
+	return isPromiseClient(client);
 }

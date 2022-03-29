@@ -43,6 +43,11 @@
 		],
 		"require": [
 			"ts-node/register/transpile-only"
+		],
+		"files": [
+			"**/*.spec.ts",
+			"test/**/*",
+			"!disabled"
 		]
 	},
 	"homepage": "https://github.com/natesilva/keyv-anyredis#readme",
@@ -63,6 +68,7 @@
 		"keyv": "*",
 		"nyc": "^15.1.0",
 		"redis": "^3.1.2",
+		"redis-4": "npm:redis@^4",
 		"redis-clustr": "^1.7.0",
 		"tedis": "^0.1.12",
 		"testdouble": "^3.16.1",
