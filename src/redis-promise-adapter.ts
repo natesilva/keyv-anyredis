@@ -74,7 +74,7 @@ export class RedisPromiseAdapter<T extends CompatibleCallbackRedisClient>
 		return this.#get(key);
 	}
 
-	set(key: string, value: string, expiryMode?: string, time?: number) {
+	set(key: string, value: string, expiryMode?: 'PX', time?: number) {
 		if (expiryMode && typeof time === 'number') {
 			return this.#set(key, value, expiryMode, time);
 		}

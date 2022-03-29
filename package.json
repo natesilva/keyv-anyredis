@@ -46,7 +46,7 @@
 		],
 		"files": [
 			"**/*.spec.ts",
-			"test/**/*",
+			"test/**/test-*.ts",
 			"!disabled"
 		]
 	},

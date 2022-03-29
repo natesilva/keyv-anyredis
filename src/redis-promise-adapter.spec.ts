@@ -263,7 +263,7 @@ test('set: should delegate to the promisified callback client method with a TTL'
 	const mockCallbackClient = getMockCallbackClient();
 	const mockKey = 'the key';
 	const mockValue = 'the value';
-	const mockExpiryMode = 'the mode';
+	const mockExpiryMode = 'PX';
 	const mockTtl = -42;
 	const placeholderResult = 'placeholder result';
 

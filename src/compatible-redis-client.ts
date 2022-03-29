@@ -12,7 +12,7 @@ export interface CompatibleCallbackRedisClient {
 	set(
 		key: string,
 		value: string,
-		expiryMode: string,
+		expiryMode: 'PX',
 		time: number,
 		callback?: RedisCallback<unknown>
 	): unknown;
@@ -34,12 +34,9 @@ export interface CompatibleCallbackRedisClient {
 export interface CompatiblePromiseRedisClient {
 	get(key: string): PromiseLike<string | null>;
 
-	set(
-		key: string,
-		value: string,
-		expiryMode?: string,
-		time?: number
-	): PromiseLike<unknown>;
+	set(key: string, value: string): PromiseLike<unknown>;
+
+	set(key: string, value: string, expiryMode: 'PX', time: number): PromiseLike<unknown>;
 
 	del(key: string): PromiseLike<number>;
 
@@ -117,7 +114,17 @@ export function isCompatibleNodeRedisV4Client(
 	client: CompatibleRedisClient
 ): client is CompatibleNodeRedisV4Client {
 	// It must have uppercase methods
-	for (const method of ['GET', 'SET', 'DEL', 'SADD', 'SREM', 'SMEMBERS']) {
+	for (const method of [
+		'GET',
+		'get',
+		'SET',
+		'set',
+		'DEL',
+		'del',
+		'SADD',
+		'SREM',
+		'SMEMBERS'
+	]) {
 		if (!(method in client)) {
 			return false;
 		}
