@@ -54,6 +54,18 @@ test('constructor: should emit an error if the client emits one', async t => {
 	});
 });
 
+test('ttlSupport: should be true', t => {
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = 'the adapter' as unknown as CompatiblePromiseRedisClient;
+
+	td.replace(RedisPromiseAdapter, 'create');
+	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
+
+	const adapter = new KeyvAnyRedis(mockClient);
+
+	t.true(adapter.ttlSupport);
+});
+
 test('_getNamespace: should get the namespace', t => {
 	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 	const mockPromiseAdapter = 'the adapter' as unknown as CompatiblePromiseRedisClient;
@@ -279,4 +291,50 @@ test('clear: should call del for all keys and the namespace', async t => {
 	td.verify(mockPromiseAdapter.del(mockNamespace));
 
 	t.pass();
+});
+
+test('has: should return true if the key is present', async t => {
+	const mockNamespace = 'the namespace';
+	const mockKey = 'the key';
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
+		sismember: td.func()
+	} as unknown as CompatiblePromiseRedisClient;
+
+	td.replace(RedisPromiseAdapter, 'create');
+	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
+
+	td.when(mockPromiseAdapter.sismember(mockNamespace, mockKey)).thenResolve(1 as any);
+
+	const adapter = new KeyvAnyRedis(mockClient);
+
+	td.replace(adapter, '_getNamespace');
+	td.when(adapter._getNamespace()).thenReturn(mockNamespace);
+
+	const actual = await adapter.has(mockKey);
+
+	t.is(actual, true);
+});
+
+test('has: should return false if the key is not present', async t => {
+	const mockNamespace = 'the namespace';
+	const mockKey = 'the key';
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = {
+		sismember: td.func()
+	} as unknown as CompatiblePromiseRedisClient;
+
+	td.replace(RedisPromiseAdapter, 'create');
+	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
+
+	td.when(mockPromiseAdapter.sismember(mockNamespace, mockKey)).thenResolve(0 as any);
+
+	const adapter = new KeyvAnyRedis(mockClient);
+
+	td.replace(adapter, '_getNamespace');
+	td.when(adapter._getNamespace()).thenReturn(mockNamespace);
+
+	const actual = await adapter.has(mockKey);
+
+	t.is(actual, false);
 });

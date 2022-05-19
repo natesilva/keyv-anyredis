@@ -55,8 +55,13 @@ export class NodeRedisV4Adapter<T extends CompatibleNodeRedisV4Client>
 		return this.#client.SREM(key, member);
 	}
 
-	smembers(key: string): PromiseLike<string[]> {
+	async smembers(key: string) {
 		// eslint-disable-next-line new-cap
 		return this.#client.SMEMBERS(key);
+	}
+
+	async sismember(key: string, member: string) {
+		// eslint-disable-next-line new-cap
+		return this.#client.SISMEMBER(key, member);
 	}
 }

@@ -91,7 +91,8 @@ test('isCompatibleNodeRedisV4Client: should return true if the client conforms t
 		DEL: td.func(),
 		SADD: td.func(),
 		SREM: td.func(),
-		SMEMBERS: td.func()
+		SMEMBERS: td.func(),
+		SISMEMBER: td.func()
 	} as unknown as CompatibleNodeRedisV4Client;
 
 	td.when(mockClient.get('hello')).thenResolve('world' as any);
@@ -108,7 +109,8 @@ test('isCompatibleNodeRedisV4Client: should return false if the client is not Pr
 		DEL: td.func(),
 		SADD: td.func(),
 		SREM: td.func(),
-		SMEMBERS: td.func()
+		SMEMBERS: td.func(),
+		SISMEMBER: td.func()
 	} as unknown as CompatibleNodeRedisV4Client;
 
 	t.false(isCompatibleNodeRedisV4Client(mockClient));
@@ -121,7 +123,8 @@ test('isCompatibleNodeRedisV4Client: should return false if the client is a trad
 		del: td.func(),
 		sadd: td.func(),
 		srem: td.func(),
-		smembers: td.func()
+		smembers: td.func(),
+		sismember: td.func()
 	} as unknown as CompatiblePromiseRedisClient;
 
 	td.when(mockClient.get('hello')).thenResolve('world' as any);
@@ -142,7 +145,8 @@ test('isCompatibleNodeRedisV4Client: should handle a Promise error', async t => 
 		DEL: td.func(),
 		SADD: td.func(),
 		SREM: td.func(),
-		SMEMBERS: td.func()
+		SMEMBERS: td.func(),
+		SISMEMBER: td.func()
 	} as unknown as CompatibleNodeRedisV4Client;
 
 	td.when(mockClient.get('hello')).thenReject(mockError);
