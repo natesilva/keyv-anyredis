@@ -54,6 +54,18 @@ test('constructor: should emit an error if the client emits one', async t => {
 	});
 });
 
+test('ttlSupport: should be true', t => {
+	const mockClient = 'the client' as unknown as CompatibleRedisClient;
+	const mockPromiseAdapter = 'the adapter' as unknown as CompatiblePromiseRedisClient;
+
+	td.replace(RedisPromiseAdapter, 'create');
+	td.when(RedisPromiseAdapter.create(mockClient)).thenReturn(mockPromiseAdapter);
+
+	const adapter = new KeyvAnyRedis(mockClient);
+
+	t.true(adapter.ttlSupport);
+});
+
 test('_getNamespace: should get the namespace', t => {
 	const mockClient = 'the client' as unknown as CompatibleRedisClient;
 	const mockPromiseAdapter = 'the adapter' as unknown as CompatiblePromiseRedisClient;
