@@ -57,4 +57,9 @@ export class KeyvAnyRedis extends EventEmitter implements Store<string | undefin
 		await Promise.all(promises);
 		await this.#client.del(this._getNamespace());
 	}
+
+	async has(key: string) {
+		const result = await this.#client.sismember(this._getNamespace(), key);
+		return Boolean(result);
+	}
 }
