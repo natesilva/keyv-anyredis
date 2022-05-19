@@ -20,7 +20,8 @@ function getMockCallbackClient(): CompatibleCallbackRedisClient {
 		del: { value: td.func(), enumerable: true },
 		sadd: { value: td.func(), enumerable: true },
 		srem: { value: td.func(), enumerable: true },
-		smembers: { value: td.func(), enumerable: true }
+		smembers: { value: td.func(), enumerable: true },
+		sismember: { value: td.func(), enumerable: true }
 	});
 
 	return mockClient as unknown as CompatibleCallbackRedisClient;

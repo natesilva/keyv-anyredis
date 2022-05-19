@@ -26,6 +26,8 @@ export interface CompatibleCallbackRedisClient {
 	srem(key: string, member: string, callback?: RedisCallback<unknown>): unknown;
 
 	smembers(key: string, callback?: RedisCallback<string[]>): unknown;
+
+	sismember(key: string, member: string, callback?: RedisCallback<number>): unknown;
 }
 
 /**
@@ -47,6 +49,8 @@ export interface CompatiblePromiseRedisClient {
 	srem(key: string, member: string): PromiseLike<unknown>;
 
 	smembers(key: string): PromiseLike<string[]>;
+
+	sismember(key: string, member: string): PromiseLike<number | boolean>;
 }
 
 /**
@@ -70,6 +74,8 @@ export interface CompatibleNodeRedisV4Client {
 	SREM(key: string, member: string): Promise<unknown>;
 
 	SMEMBERS(key: string): Promise<string[]>;
+
+	SISMEMBER(key: string, member: string): Promise<number | boolean>;
 }
 
 export type CompatibleRedisClient =
@@ -123,7 +129,8 @@ export function isCompatibleNodeRedisV4Client(
 		'del',
 		'SADD',
 		'SREM',
-		'SMEMBERS'
+		'SMEMBERS',
+		'SISMEMBER'
 	]) {
 		if (!(method in client)) {
 			return false;

@@ -27,6 +27,7 @@ export class RedisPromiseAdapter<T extends CompatibleCallbackRedisClient>
 	readonly #sadd: CompatiblePromiseRedisClient['sadd'];
 	readonly #srem: CompatiblePromiseRedisClient['srem'];
 	readonly #smembers: CompatiblePromiseRedisClient['smembers'];
+	readonly #sismember: CompatiblePromiseRedisClient['sismember'];
 
 	constructor(client: T) {
 		super();
@@ -44,6 +45,7 @@ export class RedisPromiseAdapter<T extends CompatibleCallbackRedisClient>
 		this.#sadd = promisify(this.#client.sadd).bind(this.#client);
 		this.#srem = promisify(this.#client.srem).bind(this.#client);
 		this.#smembers = promisify(this.#client.smembers).bind(this.#client);
+		this.#sismember = promisify(this.#client.sismember).bind(this.#client);
 	}
 
 	/**
@@ -94,7 +96,11 @@ export class RedisPromiseAdapter<T extends CompatibleCallbackRedisClient>
 		return this.#srem(key, member);
 	}
 
-	smembers(key: string): PromiseLike<string[]> {
+	smembers(key: string) {
 		return this.#smembers(key);
+	}
+
+	sismember(key: string, member: string) {
+		return this.#sismember(key, member);
 	}
 }

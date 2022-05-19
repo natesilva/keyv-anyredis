@@ -17,7 +17,8 @@ function getMockNodeRedisV4Client(): CompatibleNodeRedisV4Client {
 		DEL: { value: td.func(), enumerable: true },
 		SADD: { value: td.func(), enumerable: true },
 		SREM: { value: td.func(), enumerable: true },
-		SMEMBERS: { value: td.func(), enumerable: true }
+		SMEMBERS: { value: td.func(), enumerable: true },
+		SISMEMBER: { value: td.func(), enumerable: true }
 	});
 
 	return mockClient as unknown as CompatibleNodeRedisV4Client;
@@ -246,4 +247,34 @@ test('set: should reject if the callback returns an error', async t => {
 	const actual = await mockClient.set(mockKey, mockValue);
 
 	await t.throwsAsync(adapter.set(mockKey, mockValue), { message: /the error/ });
+});
+
+test('sismember: should delegate to the promisified callback client method', async t => {
+	const mockClient = getMockNodeRedisV4Client();
+	const mockSetName = 'the key';
+	const mockSetMember = 'the value';
+	const placeholderResult = 'placeholder result';
+
+	const adapter = new NodeRedisV4Adapter(mockClient);
+
+	// eslint-disable-next-line new-cap
+	td.when(mockClient.SISMEMBER(mockSetName, mockSetMember)).thenResolve(placeholderResult as any);
+
+	const actual = await adapter.sismember(mockSetName, mockSetMember);
+
+	t.deepEqual(actual, placeholderResult);
+});
+
+test('sismember: should reject if the callback returns an error', async t => {
+	const mockClient = getMockNodeRedisV4Client();
+	const mockSetName = 'the key';
+	const mockSetMember = 'the value';
+	const mockError = new Error('the error');
+
+	const adapter = new NodeRedisV4Adapter(mockClient);
+
+	// eslint-disable-next-line new-cap
+	td.when(mockClient.SISMEMBER(mockSetName, mockSetMember)).thenReject(mockError);
+
+	await t.throwsAsync(adapter.sismember(mockSetName, mockSetMember), { message: /the error/ });
 });
